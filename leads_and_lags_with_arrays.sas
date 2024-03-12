@@ -98,7 +98,7 @@ run;
 
 /*
 Example 3.
-working with with macro wrappers
+working with macro wrappers
 */
 %macro LLarray(LL,ds,var,nObs,type);
 if _N_ = 1 then
@@ -169,7 +169,58 @@ data want5;
   call streaminit(123);
   i = rand("integer",-20,20);
   valueNum = %LLfind(LLN, curobs+i);       
-  valuechar = %LLfind(LLC, curobs+i);       
+  valueChar = %LLfind(LLC, curobs+i);       
+
+  /* your code goes here ... */
+
+run;
+
+
+/*
+Example 4.
+working with macro wrappers, but more I/O efficient
+*/
+%macro LLarray2(LLs,ds,vars,nObs,types);
+%put NOTE: Remember to list character variables first!;
+if _N_ = 1 then
+  do;
+    %local i LL var type;
+    %do i=1 %to %sysfunc(countw(%superq(vars),%str( )));
+      %let LL = %scan(%superq(LLs), &i., %str( ));
+      %let var = %scan(%superq(vars), &i., %str( ));
+      %let type = %scan(%superq(types), &i., %str( ));
+      array &LL.[0:&nObs.] &type. _temporary_;
+    %end;
+    do until (endLL);
+      set &DS.(keep=&vars.) end=endLL curobs=curobsLL;
+      %do i=1 %to %sysfunc(countw(%superq(vars),%str( )));
+        %let LL = %scan(%superq(LLs), &i., %str( ));
+        %let var = %scan(%superq(vars), &i., %str( ));
+  
+        &LL.[curobsLL]=&var.;
+      %end;
+    end;
+  end;
+%mend LLarray2;
+
+%macro LLfind(LL,f);
+  &LL.[(0<(&f.)<=hbound(&LL.))*(&f.)]
+%mend LLfind;
+
+options mprint;
+data want6;
+
+  /* "declare" array for Leads and Lags */
+  %LLarray2(LLC LLN, have, model invoice, &nObs., $50);
+
+  /* read your data */
+  set have curobs=curobs;
+
+  /* find a random lead or lag for multiple variables */
+  call streaminit(123);
+  i = rand("integer",-20,20);
+  valueNum = %LLfind(LLN, curobs+i);       
+  valueChar = %LLfind(LLC, curobs+i);       
 
   /* your code goes here ... */
 
