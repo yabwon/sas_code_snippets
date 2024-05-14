@@ -30,7 +30,7 @@ RUN;
 
 /* Example: */
 /*
-%SaveMyCode_Start(ALL)
+%SaveMyCode_Start()
 &CARDS4.;
 
 data _test_code_saver;
