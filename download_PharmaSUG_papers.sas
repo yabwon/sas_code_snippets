@@ -23,6 +23,7 @@ filename SPFinit url "https://bit.ly/SPFinit";
 
 /* GET PROCEEDINGS:
 */
+options msglevel=N;
 %let year=2024;
 %let path4proceedings=/Path/Wher/You/Want/Save/Proceedngs/;     *<====== ADJUST THIS PATH;
 
