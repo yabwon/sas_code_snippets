@@ -1,5 +1,5 @@
 
-/* if you dont's have BasePlus package enabled, run this */
+/* if you don't have BasePlus package enabled, run this */
 /* GET FRAMEWORK and BASEPLUS:
 
 filename packages "/path/to/my/packages";        *<====== ADJUST THIS PATH;
