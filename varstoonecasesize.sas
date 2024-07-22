@@ -2,7 +2,7 @@
 
 /*
 The %VarsToOneCaseSize() macro requires: 
-  the BasePlus(at least 1.42.0) package and 
+  the BasePlus(at least 1.43.0) package and 
   the macroArray package.
 
 
