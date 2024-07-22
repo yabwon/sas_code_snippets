@@ -21,7 +21,7 @@ The %VarsToOneCaseSize() macro requires:
 %if %sysfunc(exist(&lib..&ds.)) %then
   %do;
     %local pattern;
-    %put **&case.**;
+    /*%put **&case.**;*/
     %if %superq(case) IN (u U) %then
       %do;
         %let case=UPCASE;
@@ -32,7 +32,7 @@ The %VarsToOneCaseSize() macro requires:
         %let case=lowcase; 
         %let pattern=[A-Z]+;
       %end;
-    %put **&case.**&pattern.**;
+    /*%put **&case.**&pattern.**;*/
 
     %getVars(&lib..&ds.,mcArray=___vars,pattern=&pattern.,ignoreCases=0)
 
