@@ -1,4 +1,4 @@
-﻿
+
 
 %macro includeSASNotebook(path, print=0);
 
@@ -49,7 +49,7 @@ run;
 
 filename incl "%sysfunc(pathname(WORK))/&_tmp_._2.txt";
 
-data _null_2;
+data _null_;
 infile selected lrecl=&maxLine. dlm='0a0d'x TRUNCOVER;
   file incl lrecl=&maxLine.;
 
