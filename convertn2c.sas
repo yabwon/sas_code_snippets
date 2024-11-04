@@ -1,4 +1,3 @@
-﻿
 
 /* REQUIRES: BasePlus package */
 /* REQUIRES: macroArray package */
@@ -135,5 +134,10 @@ proc contents data=class;
 run;
 
 ods select all;
+
+
+%convertN2C(NO_DATA_SET, age)
+
+%convertN2C(class, NO_VARIABLE)
 
 ============================================================================ */
