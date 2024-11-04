@@ -25,10 +25,10 @@
 */
 %macro convertN2C(
  ds /* data sets name */
-,vn /* variable to convert, best32. is used, 
-       currently only one variable at a time! */
-);
-  %local i j tmp id rc TYPE1 TYPE2 TYPE3 INDEX;
+,vn /* space-separated list of variables to convert, 
+       best32. is used by default, */
+)/minoperator;
+  %local i j tmp id rc INDEX;
   %let j=0;
   %let tmp = _N2CorC2N_%sysfunc(datetime(),B8601dt15.)_;
   %getVars(&ds.
@@ -44,7 +44,7 @@
       %let INDEX = %sysfunc(ATTRN(&id.,INDEX));
       %if (&index.) %then
         %do;
-          %let rc = %sysfunc(doSubL(%str(
+          %let rc = %sysfunc(doSubL(%str( options nonotes nomprint nosymbolgen nomlogic;
             proc contents data = &ds. noprint out2=&tmp.(keep=libname member recreate);
             run;
           ))); 
@@ -54,17 +54,18 @@
     );
     retain 
       %do i=&&&tmp.LBOUND. %to &&&tmp.HBOUND.;
-        %if %UPCASE(%&tmp.(&i.))=%UPCASE(&vn.) %then
+        %if %UPCASE(%&tmp.(&i.)) IN (%UPCASE(&vn.)) %then
           %do;
-            %let j=&i.;
-            %&tmp.(&i.)  &tmp.
-            %let rc = %sysfunc(doSubL(%str(
+            %let j=&j. &i.;
+            %&tmp.(&i.)  &tmp.&i.
+            %local TYPE&i._1 TYPE&i._2 TYPE&i._3;
+            %let rc = %sysfunc(doSubL(%str( options nonotes nomprint nosymbolgen nomlogic;
                       data _null_;
                         set &ds.(keep=%&tmp.(&i.));
-                        call symputX("TYPE1", ifc(upcase(VTYPE(%&tmp.(&i.)))="C","IN", " ") ,"L");
-                        call symputX("TYPE2", ifc(upcase(VTYPE(%&tmp.(&i.)))="C","??", " ") ,"L");
-                        call symputX("TYPE3", quote(VLABEL(%&tmp.(&i.)),"'") ,"L");
-                        rc=sleep(0.2,1);
+                        call symputX("TYPE&i._1", ifc(upcase(VTYPE(%&tmp.(&i.)))="C","IN", " ") ,"L");
+                        call symputX("TYPE&i._2", ifc(upcase(VTYPE(%&tmp.(&i.)))="C","??", " ") ,"L");
+                        call symputX("TYPE&i._3", quote(VLABEL(%&tmp.(&i.)),"'") ,"L");
+                        rc=sleep(0.05,1);
                         stop;
                       run; 
                       )));
@@ -74,13 +75,15 @@
     ;
     set &ds.;
 
-    %if (&j.) %then
-      %do;
-        &tmp.=&TYPE1.put(%&tmp.(&j.), &TYPE2. best32.);
-        drop %&tmp.(&j.);
-        rename &tmp. = %&tmp.(&j.);
-        label &tmp. = &TYPE3.;
-      %end;
+    %do i=&&&tmp.LBOUND. %to &&&tmp.HBOUND.;
+      %if &i. IN (&j.) %then
+        %do;
+          &tmp.&i.=&&TYPE&i._1.put(%&tmp.(&i.), &&TYPE&i._2. best32.);
+          drop %&tmp.(&i.);
+          rename &tmp.&i. = %&tmp.(&i.);
+          label &tmp.&i. = &&TYPE&i._3.;
+        %end;
+    %end;
   run;
 
   %if (&index.) %then
@@ -139,5 +142,38 @@ ods select all;
 %convertN2C(NO_DATA_SET, age)
 
 %convertN2C(class, NO_VARIABLE)
+
+============================================================================ */
+
+
+/* EXAMPLE 2 */
+/* ============================================================================
+
+data class2(label="Test Label 1" compress=yes index=(name wh=(height weight)));
+  set sashelp.class;
+  label age = 'Variable with age and has %percents and &amps in it!!'
+        sex = "Variable with sex"
+        weight = "Weight, but not in kilograms.";
+  ;
+run;
+
+proc contents data=class2;
+run;
+
+options MPRINT;
+%convertN2C(class2, age weight)
+
+ods select variables;
+proc contents data=class2;
+run;
+
+options MPRINT;
+%convertN2C(class2, weight age XXX)
+
+ods select variables;
+proc contents data=class2;
+run;
+
+ods select all;
 
 ============================================================================ */
