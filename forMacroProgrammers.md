@@ -63,6 +63,7 @@ These are just "*an*" opinions, you don't have to agree ;-)
 17) Use short lines (max 100-120 characters).
 18) Cut it to pieces, short programs maintain better, read easier, and can be reused. LEGO bricks approach.
 19) Read "*IS THIS MACRO PARAMETER BLANK?*" article by Chang Y. Chung. and John King, link: https://support.sas.com/resources/papers/proceedings09/022-2009.pdf
+20) The `resolve()` function can resolve a lot of problems.
 
 These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches) don't comply.  
 
