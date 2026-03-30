@@ -12,10 +12,10 @@ These are just "*an*" opinions, you don't have to agree ;-)
 
 0) Read about macro programming (always cross-check with the documentation, even if you are experienced [especially!], there is a lot to learn!)
 1) Everything is text! Everything!
-2) The code (macro) and the data (text) are intertwined, so it makes it rarder to separate (in contraru to DATA steps and data sets.)
+2) The code (macro) and the data (text) are intertwined, so it makes it harder to separate (in contraru to DATA steps and data sets.)
 3) Macro programs are **text**, not code, **generators* (!!!)
 4) One text is replaced by another, regardles it is macro variable or macro program. Macro progrma gives you more flexibility (conditional, loops, etc.), but both can be tricky to use.
-5) Macro is not always the best solution, if you can do your work with a DATA/PROC step, do it that way (DATA steps are compiled, so faster [compare loops]).
+5) Macro is not always the best solution, if you can do your work with a DATA/PROC step, do it that way (DATA steps are compiled, so faster [compare DS and macro loops]).
 6) No macro quoting wins macro quoting (go with K.I.S.S. principle). 
 7) Macro programming has separate timing, before DATA steps compilation and execution. 
 8) Steps (data and proc, queries) are boundaries and triggers of macro processing stages.
@@ -31,11 +31,11 @@ These are just "*an*" opinions, you don't have to agree ;-)
 2) Do keep macro variables inside a macro local (unless global is the purpose [exception confirms the rule]).
 3) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
 4) The `call symputX()` wins `call symput()`.
-5) The `%include` is not a macro language; BTW. when you decide to use `%include` inside a macro, remember that if you chanfe the file tehn the included content change between calls.
+5) The `%include` is not a macro language; BTW. when you decide to use `%include` inside a macro, remember that if you change the file tehn the included content change between calls.
 6) **Do read** Art Carpenter's book! Really! (Google for "Carpenter's Complete Guide to the SAS Macro Language, Third Edition")
 7) I your macro changes SAS session options, then restore those changed options to their original values at the end of the macro.
 8) Always execute input checks, e.g., if a boolean indicator is really 0/1, if an input data set really exists, etc. If they are not OK, throw an error/warning message AND gracefully terminate the macro.
-9) Use `symget("&variable.")` instead `"&variable."` to pass values to DATA steps (smaller chance than a "wrong" input will break your code).
+9) Use `symget("&variable.")` instead `"&variable."` to pass values to DATA steps (smaller chance than a "wrong" input will break your code). 
 10) Use the dot! I.e., write `&variable.` instead `&variable`.
 11) Write every input parameter in a separate line:
   ```sas
