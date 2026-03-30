@@ -42,8 +42,6 @@ These are just "*an*" opinions, you don't have to agree ;-)
   %macro ABC(
       x
     , y
-    , z
-    , t=
     , u=
     , v=
   );
@@ -52,7 +50,9 @@ These are just "*an*" opinions, you don't have to agree ;-)
 
 12) Always define macro with parenthesis:
   ```sas
-  %macro ABC(); data _null_; run; %mend;
+  %macro ABC();
+    data _null_; run;
+  %mend ABC;
   ```
   even if it has no arguments, you may want to add them later and parenthesis makes it easier.
 
@@ -65,7 +65,7 @@ These are just "*an*" opinions, you don't have to agree ;-)
 19) Read "*IS THIS MACRO PARAMETER BLANK?*" article by Chang Y. Chung. and John King, link: https://support.sas.com/resources/papers/proceedings09/022-2009.pdf
 20) The `resolve()` function can resolve a lot of problems.
 
-These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches) don't comply.  
+These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches here) don't comply.  
 
 One more shameless plug: use SAS packages for sharing your code. :-)
 
@@ -76,7 +76,8 @@ One more shameless plug: use SAS packages for sharing your code. :-)
 Those are some of resources I've used to learn and to build my opinions on. The list is not exhaustive.
 
 Don H and Art C. old `sascommunities.org` article:
-https://web.archive.org/web/20190930042935/http://www.sascommunity.org/wiki/Macro_Programming_Best_Practices:_Styles,_Guidelines_and_Conventions_Including_the_Rationale_Behind_Them
+https://web.archive.org/web/20191017191057/http://www.sascommunity.org/wiki/Macro_Programming_Best_Practices:_Styles%2C_Guidelines_and_Conventions_Including_the_Rationale_Behind_Them
+pdf file with printed version of the page: https://pages.mini.pw.edu.pl/~jablonskib/SASpublic/MacroProgrammingBestPractices_from_sasCommunity.pdf
 
 Kurt B. Maxims:
 https://communities.sas.com/t5/SAS-Communities-Library/Maxims-of-Maximally-Efficient-SAS-Programmers/ta-p/352068
