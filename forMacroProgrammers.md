@@ -65,6 +65,8 @@ These are just "*an*" opinions, you don't have to agree ;-)
 
 These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches) don't comply.  
 
+One more shameless plug: use SAS packages for sharing your code. :-)
+
 ---
 
 ### Bibliography:
