@@ -61,7 +61,7 @@ These are just "*an*" opinions, you don't have to agree ;-)
 15) Always(!) call a macro with parenthesis at the end! (Good: `%ABC()`)
 16) Write the code in readable way (make the text look nice to read, there is already a lot of `&%&%&%`-fluff there)
 17) Use short lines (max 100-120 characters).
-18) Cut it to pieces, short programs maintain better, reads easier, and can be reused. LEGO bricks approach.
+18) Cut it to pieces, short programs maintain better, read easier, and can be reused. LEGO bricks approach.
 
 These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches) don't comply.  
 
