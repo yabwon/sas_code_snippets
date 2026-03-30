@@ -13,7 +13,7 @@ These are just "*an*" opinions, you don't have to agree ;-)
 0) Read about macro programming (always cross-check with the documentation, even if you are experienced [especially!], there is a lot to learn!)
 1) Everything is text! Everything!
 2) The code (macro) and the data (text) are intertwined, so it makes it harder to separate (in contraru to DATA steps and data sets.)
-3) Macro programs are **text**, not code, **generators* (!!!)
+3) Macro programs are **text**, not code, generators (!!!)
 4) One text is replaced by another, regardles it is macro variable or macro program. Macro progrma gives you more flexibility (conditional, loops, etc.), but both can be tricky to use.
 5) Macro is not always the best solution, if you can do your work with a DATA/PROC step, do it that way (DATA steps are compiled, so faster [compare DS and macro loops]).
 6) No macro quoting wins macro quoting (go with K.I.S.S. principle). 
