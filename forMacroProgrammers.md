@@ -56,7 +56,7 @@ These are just "*an*" opinions, you don't have to agree ;-)
     
     %myMacro() /* !?!?! */
     
-    /* there is a separate place in hell is waiting for a programmer writing this way */
+    /* there is a separate place in hell waiting for a programmer writing this way */
   ~~~
 2) Do keep macro variables inside a macro local (unless global is the purpose [exception confirms the rule]).
 3) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
