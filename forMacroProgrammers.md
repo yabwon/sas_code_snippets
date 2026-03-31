@@ -28,6 +28,36 @@ These are just "*an*" opinions, you don't have to agree ;-)
 ### `Do`s and `don't`s on macro programming (not-sorted):
 
 1) Do not put definition of a macro inside definition of another macro (unless this is the purpose [rare exceptions confirm the rule])!
+  ~~~sas
+    /* this one sleeps in my sasautos */
+    %macro myMacro();
+      %put This is my little macro;
+    %mend myMacro;
+    
+    %myMacro()
+    
+    /* this one I've got from someone */
+    %macro someoneelseMacro();
+      %macro myMacro();
+        %put Hell is waiting;
+      %mend myMacro;
+    
+      data A;
+        x = 42;
+      run;
+    
+      %myMacro()
+    
+      proc print data=a;
+      run;
+    %mend someoneelseMacro;
+    
+    %someoneelseMacro()
+    
+    %myMacro() /* !?!?! */
+    
+    /* there is a separate place in hell is waiting for a programmer writing this way */
+  ~~~
 2) Do keep macro variables inside a macro local (unless global is the purpose [exception confirms the rule]).
 3) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
 4) The `call symputX()` wins `call symput()`.
@@ -60,6 +90,26 @@ These are just "*an*" opinions, you don't have to agree ;-)
 14) Never(!) call a macro with a semicolon at the end! (Bad: `%ABC;`)
 15) Always(!) call a macro with parenthesis at the end! (Good: `%ABC()`)
 16) Write the code in readable way (make the text look nice to read, there is already a lot of `&%&%&%`-fluff there)
+    
+    Example of "ugly" programming:
+    ~~~~sas
+      %let ds = A;
+      %let var = x;
+      %macro uglyAsHell; %put This is my bad programming; data &ds;&var=42;run; %mend uglyAsHell;
+      %uglyAsHell;
+    ~~~~
+    Better way to write it (using 12, 13, 14, 15, and 16):
+    ~~~~sas
+      %macro aBitBetter(ds,var);
+        %put This is my better programming;
+      
+        data &ds;
+         &var=42;
+        run;
+      %mend aBitBetter;
+      
+      %aBitBetter(A,x)
+    ~~~~
 17) Use short lines (max 100-120 characters).
 18) Cut it to pieces, short programs maintain better, read easier, and can be reused. LEGO bricks approach.
 19) Read "*IS THIS MACRO PARAMETER BLANK?*" article by Chang Y. Chung. and John King, link: https://support.sas.com/resources/papers/proceedings09/022-2009.pdf
