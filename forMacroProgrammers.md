@@ -1,6 +1,7 @@
 # Bart's thoughts on macro programming
 
 *[Draft, 2026-03-30] I drafted this in 15 minutes, if you think there are points to add - let me know.*
+
 *[Fixes, 2026-03-31] I've fixed some spellings, bugs, and added some more examples.*
 
 These are some of my thoughts/opinions about macro programming in SAS. 
