@@ -190,6 +190,43 @@ These are just "*an*" opinions, you don't have to agree ;-)
 
 20) The `resolve()` function can resolve a lot of problems.
 
+21) Try to anticipate (I know it's hard job) how it can be generalized. For example instead this:
+    ~~~sas
+      %macro A();
+        data _null_;
+          x=42;
+          call symputX('x',x,"L");
+        run;
+      
+        %put ERROR: 1) &=x.;
+        %put ERROR: 2) &=x.;
+        %put ERROR: 3) &=x.;
+      %mend A;
+      
+      %A()
+    ~~~
+    try this:
+    ~~~sas
+      %macro A(em=%upcase(error));
+        data _null_;
+          x=42;
+          call symputX('x',x,"L");
+        run;
+      
+        %put &em.: 1) &=x.;
+        %put &em.: 2) &=x.;
+        %put &em.: 3) &=x.;
+      %mend A;
+      
+      %A()
+      
+      %A(em=NOTE)
+      
+      %A(em=ECHO)    
+    ~~~
+
+22) Do not afraid to write plain: `%put ERROR: ... ;` instead something like: `%put %str(E)RROR: ... ;`... If your log checker catches line of code like that as an error then the log checker wrong, not you. 
+
 These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches here) don't comply.  
 
 One more shameless plug: use SAS packages for sharing your code. :-)
