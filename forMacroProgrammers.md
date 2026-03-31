@@ -11,18 +11,31 @@ These are just "*an*" opinions, you don't have to agree ;-)
 ### General thoughts on macro programming (not-sorted):
 
 0) Read about macro programming (always cross-check with the documentation, even if you are experienced [especially!], there is a lot to learn!)
+
 1) Everything is text! Everything!
+
 2) The code (macro) and the data (text) are intertwined, so it makes it harder to separate (in contraru to DATA steps and data sets.)
+
 3) Macro programs are **text**, not code, generators (!!!)
+
 4) One text is replaced by another, regardles it is macro variable or macro program. Macro progrma gives you more flexibility (conditional, loops, etc.), but both can be tricky to use.
+
 5) Macro is not always the best solution, if you can do your work with a DATA/PROC step, do it that way (DATA steps are compiled, so faster [compare DS and macro loops]).
+
 6) No macro quoting wins macro quoting (go with K.I.S.S. principle). 
+
 7) Macro programming has separate timing, before DATA steps compilation and execution. 
+
 8) Steps (data and proc, queries) are boundaries and triggers of macro processing stages.
+
 9) Pure macro code is harder to get but worth it.
+
 10) Indirect referencing (`&&`) is easier than it looks and than people say it is. Bad news, there is no other way but learnign if you want to learn "advanced macro programming".
+
 11) Practice - good macro code emerges from practice and experience, practice and experience comes from sh*ty macro code...
+
 12) Always save your code before run, bugy macro can hang your SAS session.
+
 13) If you are inexperienced SASer - start simple (first running 4GL, then macro variables, and the last go with the macro envelope). It will get easier with time and practice.
 
 ### `Do`s and `don't`s on macro programming (not-sorted):
@@ -58,16 +71,63 @@ These are just "*an*" opinions, you don't have to agree ;-)
     
     /* there is a separate place in hell waiting for a programmer writing this way */
   ~~~
-2) Do keep macro variables inside a macro local (unless global is the purpose [exception confirms the rule]).
-3) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
-4) The `call symputX()` wins `call symput()`.
-5) The `%include` is not a macro language; BTW. when you decide to use `%include` inside a macro, remember that if you change the file tehn the included content change between calls.
-6) **Do read** Art Carpenter's book! Really! (Google for "Carpenter's Complete Guide to the SAS Macro Language, Third Edition")
-7) I your macro changes SAS session options, then restore those changed options to their original values at the end of the macro.
-8) Always execute input checks, e.g., if a boolean indicator is really 0/1, if an input data set really exists, etc. If they are not OK, throw an error/warning message AND gracefully terminate the macro.
-9) Use `symget("&variable.")` instead `"&variable."` to pass values to DATA steps (smaller chance than a "wrong" input will break your code). 
-10) Use the dot! I.e., write `&variable.` instead `&variable`.
-11) Write every input parameter in a separate line:
+
+2) Do keep macro variables inside a macro local (unless global is the purpose [exception confirms the rule]). With no `%local` statement, depending on session setup, the same macro will behave differently:
+    ~~~sas
+    %macro A();
+      %let x=42;
+      %put inside: &=x.;
+    %mend A;
+    ~~~
+    
+    The following call to A creates local `x`:
+    ~~~sas
+    %A()
+    ~~~
+    (that's how macro variables creation is designed).
+   
+    But if there exists global `x`, its value will will be overwritten:
+    ~~~sas
+    %let x = I am global;
+    %A()
+    %put outside: &=x.;
+    ~~~
+    (that's also how macro variables creation is designed).
+
+    With `%local` both above calls will be the same (local variable will be created):
+    ~~~sas
+      /* use local macro variables */
+      %macro A();
+        %local x;
+        %let x=43;
+        %put inside: &=x.;
+      %mend A;
+    ~~~
+    But also, don't be go to far ;-)
+    ~~~sas
+      /* don't go too far */
+      %macro A(x=44);
+        %put inside: &=x.;
+      %mend A;
+    ~~~
+
+4) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
+
+5) The `call symputX()` wins `call symput()`.
+
+6) The `%include` is not a macro language; BTW. when you decide to use `%include` inside a macro, remember that if you change the file then the included content change between calls.
+
+7) **Do read** Art Carpenter's book! Really! (Google for "Carpenter's Complete Guide to the SAS Macro Language, Third Edition")
+
+8) I your macro changes SAS session options, then restore those changed options to their original values at the end of the macro. Leaving options unrestored is like using a toilet without flushing...
+
+9) Always execute input checks, e.g., if a boolean indicator is really 0/1, if an input data set really exists, etc. If they are not OK, throw an error/warning message AND gracefully terminate the macro.
+
+10) Use `symget("variable")` instead `"&variable."` to pass values to DATA steps (smaller chance than a "wrong" input will break your code). 
+
+11) Use the dot! I.e., write `&variable.` instead `&variable`.
+
+12) Write every input parameter in a separate line:
   ```sas
   %macro ABC(
       x
@@ -87,8 +147,11 @@ These are just "*an*" opinions, you don't have to agree ;-)
   even if it has no arguments, you may want to add them later and parenthesis makes it easier.
 
 13) Reduce (or eliminate) situations where you define macro variables used inside a macro outside the macro. Use parameters and pass those values as parameters (that will enforce "locality").
+
 14) Never(!) call a macro with a semicolon at the end! (Bad: `%ABC;`)
+
 15) Always(!) call a macro with parenthesis at the end! (Good: `%ABC()`)
+
 16) Write the code in readable way (make the text look nice to read, there is already a lot of `&%&%&%`-fluff there)
     
     Example of "ugly" programming:
@@ -115,9 +178,13 @@ These are just "*an*" opinions, you don't have to agree ;-)
       
       %aBitBetter(A,x)
     ~~~~
+
 17) Use short lines (max 100-120 characters).
+
 18) Cut it to pieces, short programs maintain better, read easier, and can be reused. LEGO bricks approach.
+
 19) Read "*IS THIS MACRO PARAMETER BLANK?*" article by Chang Y. Chung. and John King, link: https://support.sas.com/resources/papers/proceedings09/022-2009.pdf
+
 20) The `resolve()` function can resolve a lot of problems.
 
 These are rules I'm trying to write with. This doesn't mean I'm "fanatic" about them. Sometimes, if need be, even me (the one who preaches here) don't comply.  
