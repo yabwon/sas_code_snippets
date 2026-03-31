@@ -104,13 +104,14 @@ These are just "*an*" opinions, you don't have to agree ;-)
         %put inside: &=x.;
       %mend A;
     ~~~
-    But also, don't be go to far ;-)
+    But also, don't go to far ;-)
     ~~~sas
       /* don't go too far */
       %macro A(x=44);
         %put inside: &=x.;
       %mend A;
     ~~~
+    Playing code-golf is cool, but not on production.
 
 4) Don't use open code `%if-%then-%else`. If you really need outside-of-macro conditionals, use `%sysfunc(ifc(<condition>, text when true, text when false))`.
 
