@@ -95,7 +95,12 @@ These are just "*an*" opinions, you don't have to agree ;-)
     ~~~~sas
       %let ds = A;
       %let var = x;
-      %macro uglyAsHell; %put This is my bad programming; data &ds;&var=42;run; %mend uglyAsHell;
+    
+      %macro uglyAsHell;
+      %put This is my bad programming;
+      data &ds;&var=42;run;
+      %mend uglyAsHell;
+    
       %uglyAsHell;
     ~~~~
     Better way to write it (using 12, 13, 14, 15, and 16):
