@@ -1,0 +1,8 @@
+{
+    "bundle": "t001_set_split_silly_vs_smart",
+    "source_file": "SET statement considered harmful.sas",
+    "source_blob_sha": "800d98b0d427a89af5d927bd263a0472047ec900",
+    "source_commit": "438fbf5de1e62074bc683ee854579880ef51b128",
+    "tier": "real_data",
+    "notes": "Case A from 'CUTTING, SLASHING, AND SHREDDING' (lines 124-150 of SET statement considered harmful.sas). The original sources HAVE from a libname-backed file generated higher up in the script; here we build a small synthetic HAVE inline (3 grps x 5 ids x 2 numbers = 30 rows) so the bundle is self-contained. Demonstrates that one DATA step with SELECT/OUTPUT into multiple targets does the work that three WHERE-pass steps do."
+}

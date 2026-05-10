@@ -1,0 +1,8 @@
+{
+    "bundle": "t004_format_dataset_modify",
+    "source_file": "SET statement considered harmful.sas",
+    "source_blob_sha": "800d98b0d427a89af5d927bd263a0472047ec900",
+    "source_commit": "438fbf5de1e62074bc683ee854579880ef51b128",
+    "tier": "real_data",
+    "notes": "Case 'IT MAKES MY BLOOD BOIL' (lines 105-119 of SET statement considered harmful.sas). Demonstrates that DATA-step format application rewrites every row, while PROC DATASETS MODIFY touches only the descriptor. The original sources HAVE from a libname-backed file; here we ship a tiny inline HAVE (3 rows) so the bundle is self-contained. One adaptation: original PROC DATASETS used 'noprint'; substituted 'nolist' which is the same intent (suppress contents listing) and is what Jenner currently accepts."
+}
