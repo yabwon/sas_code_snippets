@@ -1,0 +1,8 @@
+{
+    "bundle": "t005_merge_collapse_interim",
+    "source_file": "SET statement considered harmful.sas",
+    "source_blob_sha": "800d98b0d427a89af5d927bd263a0472047ec900",
+    "source_commit": "438fbf5de1e62074bc683ee854579880ef51b128",
+    "tier": "real_data",
+    "notes": "Case 'DISENCHANTING' (lines 281-312 of SET statement considered harmful.sas). Demonstrates that an intermediate MERGE dataset followed by a downstream DATA step can be collapsed by folding the work into the MERGE itself. The original sources HAVE from a libname-backed file; here we ship a small synthetic HAVE (5 rows, two derived datasets) so the bundle is self-contained. Both approaches print the same sum (3641), proving equivalence."
+}

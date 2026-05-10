@@ -1,0 +1,33 @@
+{
+    "_captured_at": "2026-05-10T17:05:07Z",
+    "_captured_run_id": "r_019e12d98b6d7502b8a9c67777a10594",
+    "_captured_from": "https://api.jenneranalytics.com/v1/run",
+
+    "status": "ok",
+    "exit_code": 0,
+
+    "log_contains": [
+        "NOTE: Option OBS changed to 100.",
+        "NOTE: Wrote have (30 rows, 4 columns).",
+        "NOTE: Wrote work.silly_1 (10 rows, 4 columns).",
+        "NOTE: Wrote work.silly_2 (10 rows, 4 columns).",
+        "NOTE: Wrote work.silly_3 (10 rows, 4 columns).",
+        "NOTE: PROC PRINT completed: 10 observations printed, 4 variables"
+    ],
+    "log_does_not_contain": [
+        "ERROR:",
+        "[JENNER-ERROR"
+    ],
+
+    "output_contains": [
+        "silly_1 (grp=1)",
+        "smart_1 (grp=1) - same content, single pass",
+        "smart_2 (grp=2)",
+        "smart_3 (grp=3)"
+    ],
+
+    "diagnostics": {
+        "parse_warnings": [],
+        "runtime_warnings": []
+    }
+}

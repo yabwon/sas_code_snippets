@@ -1,0 +1,34 @@
+{
+    "_captured_at": "2026-05-10T17:05:08Z",
+    "_captured_run_id": "r_019e12d98f637d70bbdd98e18fefe3d5",
+    "_captured_from": "https://api.jenneranalytics.com/v1/run",
+
+    "status": "ok",
+    "exit_code": 0,
+
+    "log_contains": [
+        "NOTE: Option OBS changed to 100.",
+        "NOTE: Read 15 rows from DATALINES.",
+        "NOTE: Wrote have (15 rows, 2 columns).",
+        "NOTE: Wrote aggr (3 rows, 2 columns).",
+        "NOTE: PROC PRINT completed: 3 observations printed, 2 variables",
+        "NOTE: PROC PRINT completed: 10 observations printed, 3 variables"
+    ],
+    "log_does_not_contain": [
+        "ERROR:",
+        "[JENNER-ERROR"
+    ],
+
+    "output_contains": [
+        "per-id range (aggregate)",
+        "merged back: shift = number / range",
+        "A      13",
+        "B      13",
+        "C      15"
+    ],
+
+    "diagnostics": {
+        "parse_warnings": [],
+        "runtime_warnings": []
+    }
+}

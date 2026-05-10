@@ -1,0 +1,31 @@
+{
+    "_captured_at": "2026-05-10T17:05:08Z",
+    "_captured_run_id": "r_019e12d98d637d63b516ffc906e0bdab",
+    "_captured_from": "https://api.jenneranalytics.com/v1/run",
+
+    "status": "ok",
+    "exit_code": 0,
+
+    "log_contains": [
+        "NOTE: Option OBS changed to 100.",
+        "NOTE: Wrote one (5 rows, 2 columns).",
+        "NOTE: Wrote two (5 rows, 2 columns).",
+        "NOTE: PROC PRINT completed: 2 observations printed, 3 variables",
+        "NOTE: PROC PRINT completed: 3 observations printed, 3 variables"
+    ],
+    "log_does_not_contain": [
+        "ERROR:",
+        "[JENNER-ERROR"
+    ],
+
+    "output_contains": [
+        "only in one (left anti-join)",
+        "only in two (right anti-join)",
+        "in both (inner join)"
+    ],
+
+    "diagnostics": {
+        "parse_warnings": [],
+        "runtime_warnings": []
+    }
+}

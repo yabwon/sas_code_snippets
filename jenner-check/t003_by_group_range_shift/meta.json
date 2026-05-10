@@ -1,0 +1,8 @@
+{
+    "bundle": "t003_by_group_range_shift",
+    "source_file": "SET statement considered harmful.sas",
+    "source_blob_sha": "800d98b0d427a89af5d927bd263a0472047ec900",
+    "source_commit": "438fbf5de1e62074bc683ee854579880ef51b128",
+    "tier": "real_data",
+    "notes": "Case '#HASH TABLE FOR HELP' standard variant (lines 627-654 of SET statement considered harmful.sas). Two-pass BY-group aggregation: first.id/last.id + RETAIN to compute per-id range, then MERGE back to normalise. The original sources HAVE from a libname-backed file; here we ship a small inline HAVE (3 IDs x 5 numbers each) so the bundle is self-contained. The downstream hash-table version of the same lesson is left aside since it relies on a much larger dataset to make the point."
+}
